@@ -79,13 +79,17 @@ function nantuGetBrowser(userAgent) {
 	var supportedPlatforms = ['Linux x86_64', 'Mac OS', 'Windows NT', 'CrOS', 'Android'];
 	var supportedBrowsers = [
 		{
+			name: 'Chrome',
+			versionRegex: 'OPR/'
+		},
+		{
 			name: 'Firefox',
 			versionRegex: 'Firefox/'
 		},
 		{
 			name: 'Chrome',
 			versionRegex: 'Chrome/'
-		}
+		},
 	];
 
 	var platformIndex = -1;
@@ -123,6 +127,10 @@ function nantuGetBrowser(userAgent) {
 								browserName = 'edge';
 							}
 
+							if (userAgent.indexOf('OPR/') > -1) {
+								browserName = 'opera';
+							}
+
 							return {device: deviceType, browserType: browserType, browser: browserName, version: browserVersion};
 						}
 					}
@@ -133,3 +141,4 @@ function nantuGetBrowser(userAgent) {
 
 	return null;
 }
+

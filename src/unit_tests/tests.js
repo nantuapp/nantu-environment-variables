@@ -131,6 +131,20 @@ const userAgentTestCases = [
 		browserType: "safari",
 		version: 87
 	},
+	{
+		input: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 OPR/101.0.0.0", //Windows Opera 101
+		device: "desktop",
+		browser: "opera",
+		browserType: "chrome",
+		version: 101
+	},
+	{
+		input: "Mozilla/5.0 (Android 10; Mobile; rv:109.0) Gecko/115.0 Firefox/115.0", //Android Firefox 115
+		device: "mobile",
+		browser: "firefox",
+		browserType: "firefox",
+		version: 115
+	}
 ];
 
 for (const testCase of userAgentTestCases) {
