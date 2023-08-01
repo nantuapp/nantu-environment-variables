@@ -33,7 +33,7 @@ if (localStorage.getItem('nantu_source')) {
 var nantuURL = new URL(window.location.href);
 
 // if source, medium and campaign are set in the URL, set them in localStorage
-if ( ! localStorage.getItem('nantu_source') || nantuURL.searchParams.get("utm_source") || nantuURL.searchParams.get("utm_medium")) {
+if ( ! localStorage.getItem('nantu_source') || nantuURL.searchParams.get("utm_source") || nantuURL.searchParams.get("utm_medium") || nantuURL.searchParams.get("gclid") || nantuURL.searchParams.get("fbclid") || nantuURL.searchParams.get('msclkid')) {
 	var nantuSourceData = nantuGetSourceMedium();
 
 	if (nantuSourceData) {
@@ -131,13 +131,17 @@ function nantuGetBrowser(userAgent) {
 	var supportedPlatforms = ['Linux x86_64', 'Mac OS', 'Windows NT', 'CrOS', 'Android'];
 	var supportedBrowsers = [
 		{
+			name: 'Chrome',
+			versionRegex: 'OPR/'
+		},
+		{
 			name: 'Firefox',
 			versionRegex: 'Firefox/'
 		},
 		{
 			name: 'Chrome',
 			versionRegex: 'Chrome/'
-		}
+		},
 	];
 
 	var platformIndex = -1;
@@ -173,6 +177,10 @@ function nantuGetBrowser(userAgent) {
 
 							if (userAgent.indexOf('Edg/') > -1) {
 								browserName = 'edge';
+							}
+
+							if (userAgent.indexOf('OPR/') > -1) {
+								browserName = 'opera';
 							}
 
 							return {device: deviceType, browserType: browserType, browser: browserName, version: browserVersion};
@@ -230,6 +238,15 @@ function nantuGetSourceMedium() {
 		if(url.searchParams.get("utm_medium")) {
 			medium = url.searchParams.get("utm_medium");
 		}
+	} else if(url.searchParams.get("gclid")) {
+		source = "google";
+		medium = "cpc";
+	} else if(url.searchParams.get("fbclid")) {
+		source = "facebook";
+		medium = "cpc";
+	} else if(url.searchParams.get("msclkid")) {
+		source = "bing";
+		medium = "cpc";
 	} else if(searchEngineRegex.test(document.referrer)) {
 		source = document.referrer.match(searchEngineNameRegex)[0];
 
@@ -249,6 +266,10 @@ function nantuGetSourceMedium() {
 	}
 
 	return {source: source, medium: medium, campaign: campaign};
+}
+
+function nantuGetTotalElements(selector) {
+	return document.querySelectorAll(selector).length;
 }
 /*--includeend--*/
 </script>

@@ -69,3 +69,7 @@ function nantuGetSourceMedium() {
 
 	return {source: source, medium: medium, campaign: campaign};
 }
+
+function nantuGetTotalElements(selector) {
+	return document.querySelectorAll(selector).length;
+}
